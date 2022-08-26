@@ -1,0 +1,152 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "To-Do List",
+        "description": "To-Do List Application API"
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Todos",
+            "description": "API for To-Do List in the system"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/todos": {
+            "get": {
+                "tags": [
+                    "Todos"
+                ],
+                "summary": "Get all todos in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Todos"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Todos"
+                ],
+                "description": "Add new todos in system",
+                "parameters": [
+                    {
+                        "name": "Todos",
+                        "in": "body",
+                        "description": "To-Do that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Todo_model"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New Todo is created",
+                        "schema": {
+                            "$ref": "#/definitions/Todo_model"
+                        }
+                    }
+                }
+            }
+        },
+        "/updateTodo/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of Todo that we want to find"
+                }
+            ],
+            "put": {
+                "summary": "Update Todos with give ID",
+                "tags": [
+                    "Todos"
+                ],
+                "parameters": [
+                    {
+                        "name": "Todos",
+                        "in": "body",
+                        "description": "Todo with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/Todos"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Todo is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Todo_model"
+                        }
+                    }
+                }
+            }
+        },
+        "/deleteTodo/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of Todo that we want to find"
+                }
+            ],
+            "delete": {
+                "summary": "Delete Todo with given ID",
+                "tags": [
+                    "Todos"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Todo is deleted",
+                        "schema": {
+                            "$ref": "#/definitions/Todo_model"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Todo_model": {
+            "required": [
+                "title",
+                "description",
+                "assignee"
+            ],
+            "properties": {
+                "title": {
+                    "type": "String"
+                },
+                "description": {
+                    "type": "String"
+                },
+                "assignee": {
+                    "type": "String"
+                }
+            }
+        },
+        "Todos": {
+            "type": "array",
+            "$ref": "#/definitions/Todo_model"
+        }
+    }
+}
